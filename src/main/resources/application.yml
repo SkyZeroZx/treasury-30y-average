@@ -1,0 +1,13 @@
+spring:
+  config:
+    import: "optional:file:./.env[.properties]"
+  application:
+    name: treasury
+  webflux:
+    problemdetails:
+      enabled: true
+
+alpha-vantage:
+  base-url: https://www.alphavantage.co
+  api-key: ${ALPHA_VANTAGE_API_KEY}
+  timeout: 10s
