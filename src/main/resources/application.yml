@@ -9,5 +9,6 @@ spring:
 
 alpha-vantage:
   base-url: https://www.alphavantage.co
-  api-key: ${ALPHA_VANTAGE_API_KEY}
+  # Empty default so a missing variable fails the startup check instead of binding the literal placeholder.
+  api-key: ${ALPHA_VANTAGE_API_KEY:}
   timeout: 10s

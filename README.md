@@ -34,3 +34,12 @@ Manually verified with curl: valid range, single day, empty weekend, reversed ra
 ```powershell
 .\gradlew.bat build
 ```
+
+This also runs the tests.
+
+## Structure
+
+- `modules/treasury/domain`: models and the `TreasuryServiceAdapter` port.
+- `modules/treasury/usecases`: `GetTreasuryAverageUseCases`, where the average is calculated.
+- `modules/treasury/infrastructure`: the REST controller and the Alpha Vantage client.
+- `core`: configuration and the global error handler.

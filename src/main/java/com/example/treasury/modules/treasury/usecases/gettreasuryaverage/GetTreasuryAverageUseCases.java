@@ -1,28 +1,35 @@
-package com.example.treasury;
+package com.example.treasury.modules.treasury.usecases.gettreasuryaverage;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 
+import com.example.treasury.modules.treasury.domain.adapters.TreasuryServiceAdapter;
+import com.example.treasury.modules.treasury.domain.models.TreasuryAverage;
+import com.example.treasury.modules.treasury.domain.models.TreasuryObservation;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
-public class TreasuryService {
+public class GetTreasuryAverageUseCases {
 
-    private final AlphaVantageClient client;
+    private final TreasuryServiceAdapter treasuryService;
 
-    public Mono<TreasuryAverage> average(LocalDate from, LocalDate to) {
+    public Mono<TreasuryAverage> execute(LocalDate from, LocalDate to) {
+        log.info("Execute GetTreasuryAverageUseCases from={} to={}", from, to);
+
         if (from.isAfter(to)) {
             return Mono.error(new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     "from must be on or before to"));
         }
 
-        return client.observations()
+        return treasuryService.getObservations()
                 .filter(observation -> !observation.date().isBefore(from)
                         && !observation.date().isAfter(to))
                 .collectList()

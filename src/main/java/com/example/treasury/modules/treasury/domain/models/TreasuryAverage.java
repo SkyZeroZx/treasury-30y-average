@@ -1,4 +1,4 @@
-package com.example.treasury;
+package com.example.treasury.modules.treasury.domain.models;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
